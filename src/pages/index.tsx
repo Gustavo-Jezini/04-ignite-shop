@@ -4,7 +4,7 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
 import { stripe } from '@/lib/stripe'
-import { GetServerSideProps } from 'next'
+import { GetStaticProps } from 'next'
 import Stripe from 'stripe'
 
 interface HomeProps {
@@ -34,7 +34,7 @@ export default function Home({ products }: HomeProps) {
           className="keen-slider__slide group relative flex cursor-pointer items-center  justify-center overflow-hidden rounded-lg bg-gradient-to-b from-gradient-from to-gradient-to object-cover"
         >
           <Image src={product.imageUrl} width={520} height={480} alt="" />
-          <footer className="absolute bottom-1 left-1 right-1 flex translate-y-[110%] items-center justify-between rounded-md bg-black/60 p-8 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+          <footer className="absolute bottom-1 left-1 right-1 flex  translate-y-[110%] items-center justify-between rounded-md bg-black/60 p-8 opacity-0 transition-all group-hover:translate-y-0.5 group-hover:opacity-100">
             <strong className="text-xl text-white">{product.name}</strong>
             <span className="text-2xl font-bold text-green-300">
               {product.price}
@@ -46,7 +46,7 @@ export default function Home({ products }: HomeProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({
     expand: ['data.default_price'],
   })
@@ -58,14 +58,17 @@ export const getServerSideProps: GetServerSideProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: price.unit_amount! / 100,
+      price: new Intl.NumberFormat('pt-Br', {
+        currency: 'BRL',
+        style: 'currency',
+      }).format(price.unit_amount! / 100),
     }
   })
-  console.log(products)
 
   return {
     props: {
       products,
     },
+    revalidate: 60 * 60 * 24, // 1 Dia
   }
 }
