@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div
       className={`${roboto.className} flex min-h-screen flex-col items-start justify-center`}
     >
-      <header className="mx-auto w-full max-w-[1180px] px-8">
+      <header className="mx-auto mb-12 w-full max-w-[1180px] px-8">
         <Image src={LogoImage} alt="" />
       </header>
       <Component {...pageProps} />
