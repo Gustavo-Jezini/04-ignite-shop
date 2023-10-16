@@ -24,6 +24,9 @@ const config: Config = {
       maxWidth: {
         calc: 'calc(100vh - ((100vh - 1180px) / 2))',
       },
+      height: {
+        imgHeight: 'calc(656px - 0.5rem)',
+      },
     },
   },
   plugins: [],
