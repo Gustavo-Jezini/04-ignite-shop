@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
@@ -29,10 +30,12 @@ export default function Home({ products }: HomeProps) {
       className="keen-slider ml-auto flex min-h-[656px] w-full max-w-calc "
     >
       {products.map((product) => (
-        <a
-          key={product.id}
+        <Link
           className="keen-slider__slide group relative flex cursor-pointer items-center  justify-center overflow-hidden rounded-lg bg-gradient-to-b from-gradient-from to-gradient-to object-cover"
+          href={`/product/${product.id}`}
+          key={product.id}
         >
+          {/* <a className="keen-slider__slide group relative flex cursor-pointer items-center  justify-center overflow-hidden rounded-lg bg-gradient-to-b from-gradient-from to-gradient-to object-cover"> */}
           <Image src={product.imageUrl} width={520} height={480} alt="" />
           <footer className="absolute bottom-1 left-1 right-1 flex  translate-y-[110%] items-center justify-between rounded-md bg-black/60 p-8 opacity-0 transition-all group-hover:translate-y-0.5 group-hover:opacity-100">
             <strong className="text-xl text-white">{product.name}</strong>
@@ -40,7 +43,8 @@ export default function Home({ products }: HomeProps) {
               {product.price}
             </span>
           </footer>
-        </a>
+          {/* </a> */}
+        </Link>
       ))}
     </main>
   )
