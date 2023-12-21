@@ -42,7 +42,7 @@ export default function Product({ product }: ProductProps) {
 
   return (
     <div className="mx-auto grid max-w-[1180px] grid-cols-2 items-stretch gap-16 text-white">
-      <div className="h-imgHeight flex w-full max-w-[576px] items-center justify-center rounded-lg bg-gradient-to-b from-gradient-from to-gradient-to object-cover p-1">
+      <div className="flex h-imgHeight w-full max-w-[576px] items-center justify-center rounded-lg bg-gradient-to-b from-gradient-from to-gradient-to object-cover p-1">
         <Image src={product.imageUrl} alt="" width={520} height={480} />
       </div>
 
